@@ -15,11 +15,19 @@ export const userFatch = createAsyncThunk(
     // eslint-disable-next-line no-unused-vars
     async () => {
         try {
-            const res = await api.get("/")
+            const res = await api.get("/user")
             return res?.data
         } catch (error) {
             return error
         }
+    }
+)
+
+export const userLogin = createAsyncThunk (
+    'user/userLogin',
+    async (userCreatials) => {
+        const result = await api.post('/login', userCreatials)
+        localStorage.setItem("token", result.data.token)
     }
 )
 
@@ -36,6 +44,16 @@ const userSlice = createSlice({
             state.users = action.payload;
         },
         [userFatch.rejected]: (state) => {
+            state.status = "rejected";
+        },
+        [userLogin.pending]: (state) => {
+            state.status = "pending";
+        },
+        [userLogin.fulfilled]: (state, action) => {
+            state.status = "success";
+            state.users = action.payload;
+        },
+        [userLogin.rejected]: (state) => {
             state.status = "rejected";
         }
     }

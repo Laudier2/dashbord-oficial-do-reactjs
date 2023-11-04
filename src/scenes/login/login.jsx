@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 import { ButtonBox, FormBox, InputBox, Login2, Title } from './stylend';
+import { userLogin } from "../../redux/user/userSlice"
+import { useDispatch } from 'react-redux';
 
 function Login() {
   
-  const [ users, setUser ] = useState([])
+  //const [ users, setUser ] = useState([])
   const [ pass, setPass ] = useState(false)
-  const [ bg, setBg ] = useState(false)
+  //const [ bg, setBg ] = useState(false)
 
   const [email, setEmail] = useState("")
   const [password, setPasword] = useState("")
 
+  const dispatch = useDispatch()
+  //localStorage.setItem("token", 123456)
+  //window.location.reload();
+  //console.log(email, password)
 
   function onSubmit(e){
-    localStorage.setItem("token", 123456)
-    window.location.reload();
-    //e.preventDefault()
-    //console.log(email, password)
+    let userCreatials = {
+      email: email,
+      password: password
+    }
+    e.preventDefault()
+    dispatch(userLogin(userCreatials))
   }
 
-  return (
-    <Login2>
+
+  return (//
+    <>
+      <Login2>
        <FormBox>
           <form onSubmit={onSubmit}>
             <Title>Formulario de Login</Title>
@@ -63,6 +73,7 @@ function Login() {
           </form>  
       </FormBox>
     </Login2>
+    </>
   );
 }
 

@@ -10,7 +10,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import productReducer, {
   productFatch,
 } from "./redux/product/productsSlice.jsx";
-import useReducer, { userFatch } from "./redux/user/userSlice.jsx";
+import useReducer, { userFatch, userLogin } from "./redux/user/userSlice.jsx";
 import { productsApi } from "./redux/product/productsApi.jsx";
 import creatsReducer, { cauculateTotal } from "./redux/cart/cart.jsx";
 import { userApi } from "./redux/user/userApi";
@@ -30,6 +30,7 @@ const store = configureStore({
 
 store.dispatch(productFatch());
 store.dispatch(userFatch());
+store.dispatch(userLogin());
 store.dispatch(cauculateTotal());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
