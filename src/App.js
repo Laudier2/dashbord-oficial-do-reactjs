@@ -16,16 +16,11 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-import { useSelector } from "react-redux";
 import Login from "./scenes/login/login";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
-
-  const res = useSelector(userSlice => userSlice)
-
-  console.log(res.user.users)
+  const [isSidebar, setIsSidebar] = useState(true) 
 
   const local = localStorage.getItem("token")
 

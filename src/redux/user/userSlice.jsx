@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import axios from "axios";
 import api from "../../api/api";
 
 const initialState = {
@@ -15,7 +14,7 @@ export const userFatch = createAsyncThunk(
     // eslint-disable-next-line no-unused-vars
     async () => {
         try {
-            const res = await api.get("/user")
+            const res = await api.get("/user/")
             return res?.data
         } catch (error) {
             return error

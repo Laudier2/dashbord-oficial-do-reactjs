@@ -1,34 +1,65 @@
 import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import { useState } from "react";
+import api from "../../api/api";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const [name, setName] = useState("")
+  const [slug, setSlug] = useState("")
+  const [price, setPrice] = useState("")
+  const [size, setSize] = useState("")
+  const [quantity, setQuantity] = useState("")
+  const [description, setDescription] = useState("")
+  const [barcode, setBarcode] = useState("")
+  const [category, setCategory] = useState("")
+  const [image1, setImage1] = useState("")
+  const [image2, setImage2] = useState("")
+  const [image3, setImage3] = useState("")
+  const [image4, setImage4] = useState("")
+  const [image5, setImage5] = useState("")
+  const [color1, setColor1] = useState("")
+  const [color2, setColor2] = useState("")
+  const [color3, setColor3] = useState("")
+  const [color4, setColor4] = useState("")
+  const [color5, setColor5] = useState("")
+
+  
+
+  const handleFormSubmit = async (values) => {
+    values.preventDefault()
+
+    const CreteUser = [{
+      name: name,
+      slug: slug,
+      price: price,
+      size: size,
+      quantity: quantity,
+      description: description,
+      bar_code: barcode,
+      image: [image1, image2, image3, image4, image5],
+      color: [color1, color2, color3, color4, color5]
+    }]
+
+    await api.post("/product", CreteUser[0]).then((res) => {
+      console.log(res.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+    //console.log(CreteUser[0])
+    
   };
 
   return (
     <Box m="20px">
-      <Header title="CREATE CRIAR USUÁRIO" subtitle="Crie um novo perfil de usuário" />
+      <Header title="CRIAR UM PRODUTO" subtitle="Crie um novo perfil de usuário" />
 
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={checkoutSchema}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -41,80 +72,238 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Primeiro Nome"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                label="Nome"
+                
+                onChange={(e) => setName(e.target.value)} 
+                name="Nome"
+                
+                
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Sobre Nome"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                label="Category"
+                
+                onChange={(e) => setCategory(e.target.value)} 
+                name="Category"
+                
+                
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4" }}
+                label="Bar-code"
+                
+                onChange={(e) => setBarcode(e.target.value)} 
+                name="Bar-code"
+                
+                
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Número de contato"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: "span 4" }}
+                label="Price"
+                
+                onChange={(e) => setPrice(e.target.value)} 
+                name="Price"
+                
+                
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Endereço 1"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address1}
-                name="Endereço1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
+                label="Size"
+                
+                onChange={(e) => setSize(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="quantity"
+                
+                onChange={(e) => setQuantity(e.target.value)} 
+                name="Quantity"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Description"
+                
+                onChange={(e) => setDescription(e.target.value)} 
+                name="Description"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Image 1"
+                
+                onChange={(e) => setImage1(e.target.value)}
+                
+                name="Image 1"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="image 2"
+                
+                onChange={(e) => setImage2(e.target.value)} 
+               
+                name="image 2"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="image 2"
+                
+                onChange={(e) => setImage3(e.target.value)} 
+               
+                name="image 3"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="image 4"
+                
+                onChange={(e) => setImage4(e.target.value)} 
+               
+                name="image 4"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="image 5"
+                
+                onChange={(e) => setImage5(e.target.value)} 
+               
+                name="image 5"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Color 1"
+                
+                onChange={(e) => setColor1(e.target.value)} 
+               
+                name="Color 1"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Color 2"
+                
+                onChange={(e) => setColor2(e.target.value)} 
+               
+                name="Color 2"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Color 3"
+                
+                onChange={(e) => setColor3(e.target.value)} 
+               
+                name="Color 3"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Color 4"
+                
+                onChange={(e) => setColor4(e.target.value)} 
+               
+                name="Color 4"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Color 5"
+                onChange={(e) => setColor5(e.target.value)}                
+                name="Color 5"
+                sx={{ gridColumn: "span 1" }}
+              />
+              {/*<TextField
                 fullWidth
                 variant="filled"
                 type="text"
                 label="Endereço 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
+                
+                onChange={(e) => setImage1}
                 value={values.address2}
                 name="Endereço2"
                 error={!!touched.address2 && !!errors.address2}
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
-              />
+              />*/}
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -122,8 +311,6 @@ const Form = () => {
               </Button>
             </Box>
           </form>
-        )}
-      </Formik>
     </Box>
   );
 };

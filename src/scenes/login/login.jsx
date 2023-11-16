@@ -13,16 +13,15 @@ function Login() {
   const [password, setPasword] = useState("")
 
   const dispatch = useDispatch()
-  //localStorage.setItem("token", 123456)
   //window.location.reload();
-  //console.log(email, password)
+
 
   function onSubmit(e){
     let userCreatials = {
       email: email,
       password: password
     }
-    e.preventDefault()
+    //e.preventDefault()
     dispatch(userLogin(userCreatials))
   }
 
