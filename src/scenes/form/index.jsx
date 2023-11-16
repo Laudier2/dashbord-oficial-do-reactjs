@@ -1,5 +1,4 @@
 import { Box, Button, TextField } from "@mui/material";
-import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState } from "react";
@@ -27,7 +26,7 @@ const Form = () => {
   const [color4, setColor4] = useState("")
   const [color5, setColor5] = useState("")
 
-  
+  console.log(category)
 
   const handleFormSubmit = async (values) => {
     values.preventDefault()
@@ -314,7 +313,7 @@ const Form = () => {
     </Box>
   );
 };
-
+/*
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
@@ -336,6 +335,6 @@ const initialValues = {
   contact: "",
   address1: "",
   address2: "",
-};
+};*/
 
 export default Form;
