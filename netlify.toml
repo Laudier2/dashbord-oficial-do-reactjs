@@ -3,5 +3,10 @@ base = "."
 command = "yarn build"
 publish = "./build/"
 
+[[redirects]]
+from = "/*"
+to = "index.html"
+status = 200
+
 [build.environment]
 REACT_APP_API_URL = "https://api-store-v4bm.onrender.com/"

@@ -28,6 +28,8 @@ const Form = () => {
   const [color3, setColor3] = useState("")
   const [color4, setColor4] = useState("")
   const [color5, setColor5] = useState("")
+  const [urlProduct, setUrlproduct] = useState("")
+  
 
   console.log(categoryid.id)
 
@@ -51,6 +53,7 @@ const Form = () => {
       quantity: quantity,
       description: description,
       bar_code: barcode,
+      url_product: urlProduct,
       image: [image1, image2, image3, image4, image5],
       color: [color1, color2, color3, color4, color5]
     }]
@@ -338,11 +341,20 @@ const Form = () => {
                 name="Color 5"
                 sx={{ gridColumn: "span 1" }}
               />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="URL do Produto"
+                onChange={(e) => setUrlproduct(e.target.value)}                
+                name="url_product"
+                sx={{ gridColumn: "span 3" }}
+              />
               
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Criar Produto
               </Button>
             </Box>
           </form>
