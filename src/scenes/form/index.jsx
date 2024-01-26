@@ -338,19 +338,7 @@ const Form = () => {
                 name="Color 5"
                 sx={{ gridColumn: "span 1" }}
               />
-              {/*<TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Endereço 2"
-                
-                onChange={(e) => setImage1}
-                value={values.address2}
-                name="Endereço2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: "span 4" }}
-              />*/}
+              
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -362,28 +350,5 @@ const Form = () => {
   </>
   );
 };
-/*
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
-const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  contact: yup
-  .string()
-  .matches(phoneRegExp, "Phone number is not valid")
-  .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
-});
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  contact: "",
-  address1: "",
-  address2: "",
-};*/
 
 export default Form;
