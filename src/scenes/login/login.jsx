@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { ButtonBox, FormBox, InputBox, Login2, Title } from './stylend';
 import { userLogin } from "../../redux/user/userSlice"
 import { useDispatch } from 'react-redux';
+//import { toast } from 'react-toastify';
 
 function Login() {
+
+ // const token = localStorage.getItem("token")
   
   //const [ users, setUser ] = useState([])
   const [ pass, setPass ] = useState(false)
-  //const [ bg, setBg ] = useState(false)
+  //const [ tk ] = useState(token)
 
   const [email, setEmail] = useState("")
   const [password, setPasword] = useState("")
@@ -15,14 +18,16 @@ function Login() {
   const dispatch = useDispatch()
   //window.location.reload();
 
-
   function onSubmit(e){
+    e.preventDefault()
+    //console.log(e, email, password)
     let userCreatials = {
       email: email,
       password: password
     }
-    //e.preventDefault()
     dispatch(userLogin(userCreatials))
+    //toast.success("Login efetuado com sucesso!")
+
   }
 
 

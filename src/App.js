@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css'
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer autoClose={3000} />
       {local === null 
       ? 
       <Routes>
@@ -35,7 +37,6 @@ function App() {
       </Routes>
       :
       <ColorModeContext.Provider value={colorMode}>
-        <ToastContainer/>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div className="app">

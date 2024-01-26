@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/api";
+import { toast } from "react-toastify";
 
 const initialState = {
     users: [],
@@ -22,11 +23,21 @@ export const userFatch = createAsyncThunk(
     }
 )
 
+
 export const userLogin = createAsyncThunk (
-    'user/userLogin',
-    async (userCreatials) => {
-        const result = await api.post('/login', userCreatials)
-        localStorage.setItem("token", result.data.token)
+	'user/userLogin',
+	async (userCreatials) => {
+			const result = await api.post('/login', userCreatials)
+			//console.log(result.data.token)
+			if(result.data.token){
+				localStorage.setItem("token", result.data.token)
+				toast.success("Login efetuado com sucesso!")
+				window.location.reload()
+			}
+			
+			if(!result.data.token){
+				toast.error("Erro ao efetuar login!")
+			}
     }
 )
 

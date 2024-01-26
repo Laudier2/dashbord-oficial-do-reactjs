@@ -1,8 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../api/api";
+import { toast } from 'react-toastify';
+import { UlLista } from "./styles";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -14,7 +16,8 @@ const Form = () => {
   const [quantity, setQuantity] = useState("")
   const [description, setDescription] = useState("")
   const [barcode, setBarcode] = useState("")
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState([])
+  const [categoryid, setCategoryid] = useState([])
   const [image1, setImage1] = useState("")
   const [image2, setImage2] = useState("")
   const [image3, setImage3] = useState("")
@@ -26,7 +29,16 @@ const Form = () => {
   const [color4, setColor4] = useState("")
   const [color5, setColor5] = useState("")
 
-  console.log(category)
+  console.log(categoryid.id)
+
+  useEffect(() => {
+    (async() => {
+      const req = await api.get("/category")
+      const res = await req.data
+      //console.log(res.data)
+      setCategory(res)
+    })()
+  },[])
 
   const handleFormSubmit = async (values) => {
     values.preventDefault()
@@ -44,20 +56,67 @@ const Form = () => {
     }]
 
     await api.post("/product", CreteUser[0]).then((res) => {
-      console.log(res.data)
+      toast.success(`O produto ${CreteUser[0].name} foi criado com sucesso!`)
+      //console.log(res.data.id, categoryid.id)
+
+      setTimeout(async() => {
+        const dataRelations = {
+          id_category: `${categoryid.id}`,
+          id_product: `${res.data.id}`
+        }
+
+        console.log(dataRelations)
+    
+       await api.post("/categorypr", dataRelations).then((catego) => {
+          
+          console.log(catego.data)
+        })
+        .catch((error) => {
+          toast.error(`Houve um erro ao criar o relacionamento: ${error}`)
+          console.log(error)
+        })
+      }, 5000);
     })
     .catch((error) => {
+      toast.error(`Houve um erro ao cadastra o produto, referente a: ${error}`)
       console.log(error)
     })
-
+  
     //console.log(CreteUser[0])
     
   };
 
   return (
+    <>
+    
     <Box m="20px">
       <Header title="CRIAR UM PRODUTO" subtitle="Crie um novo perfil de usuário" />
+      <div style={{width: 180}}>
+        {categoryid ? 
+        <ul>
+          <li style={{margin: 10, border: "solid 1px", padding: 10, fontSize: "2.rem", listStyleType: "none"}}>
+            <img src={categoryid.image} alt="img" style={{width: 100, height: 80}}/>
+            <h5 style={{fontSize: 20, marginTop: 8}}>{categoryid.name}</h5>
+          </li> 
+        </ul> : ""
+        }
+      </div>
+        <UlLista>
+          <ul>
+            {category.map(res => {
 
+              const {id, image, name } = res
+                return (
+                  <>                
+                    <li key={id} onClick={() => setCategoryid(res)}>
+                      <img src={image} alt="img" />
+                      <h5>{name}</h5>
+                    </li>
+                  </>
+                )
+            })}
+          </ul>
+        </UlLista>
           <form onSubmit={handleFormSubmit}>
             <Box
               display="grid"
@@ -79,18 +138,7 @@ const Form = () => {
                 
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Category"
-                
-                onChange={(e) => setCategory(e.target.value)} 
-                name="Category"
-                
-                
-                sx={{ gridColumn: "span 2" }}
-              />
+          
               <TextField
                 fullWidth
                 variant="filled"
@@ -114,7 +162,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 2" }}
-              />
+                />
               <TextField
                 fullWidth
                 variant="filled"
@@ -126,7 +174,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 2" }}
-              />
+                />
               <TextField
                 fullWidth
                 variant="filled"
@@ -138,7 +186,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 2" }}
-              />
+                />
               <TextField
                 fullWidth
                 variant="filled"
@@ -150,7 +198,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 2" }}
-              />
+                />
               <TextField
                 fullWidth
                 variant="filled"
@@ -163,7 +211,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 2" }}
-              />
+                />
               <TextField
                 fullWidth
                 variant="filled"
@@ -184,7 +232,7 @@ const Form = () => {
                 label="image 2"
                 
                 onChange={(e) => setImage2(e.target.value)} 
-               
+                
                 name="image 2"
                 
                 
@@ -197,12 +245,12 @@ const Form = () => {
                 label="image 2"
                 
                 onChange={(e) => setImage3(e.target.value)} 
-               
+                
                 name="image 3"
                 
                 
                 sx={{ gridColumn: "span 1" }}
-              />
+                />
                <TextField
                 fullWidth
                 variant="filled"
@@ -241,7 +289,7 @@ const Form = () => {
                 
                 
                 sx={{ gridColumn: "span 1" }}
-              />
+                />
                <TextField
                 fullWidth
                 variant="filled"
@@ -249,7 +297,7 @@ const Form = () => {
                 label="Color 2"
                 
                 onChange={(e) => setColor2(e.target.value)} 
-               
+                
                 name="Color 2"
                 
                 
@@ -275,7 +323,7 @@ const Form = () => {
                 label="Color 4"
                 
                 onChange={(e) => setColor4(e.target.value)} 
-               
+                
                 name="Color 4"
                 
                 
@@ -311,6 +359,7 @@ const Form = () => {
             </Box>
           </form>
     </Box>
+  </>
   );
 };
 /*
@@ -322,9 +371,9 @@ const checkoutSchema = yup.object().shape({
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   contact: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
+  .string()
+  .matches(phoneRegExp, "Phone number is not valid")
+  .required("required"),
   address1: yup.string().required("required"),
   address2: yup.string().required("required"),
 });
