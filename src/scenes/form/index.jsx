@@ -5,8 +5,20 @@ import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { toast } from 'react-toastify';
 import { UlLista } from "./styles";
+import ImageUploading from 'react-images-uploading';
+import { ImCloudUpload } from "react-icons/im";
 
 const Form = () => {
+
+  const [images, setImages] = useState([]);
+  const maxNumber = 69;
+
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const [name, setName] = useState("")
@@ -89,17 +101,31 @@ const Form = () => {
     
   };
 
+  const handleImages = () => {
+
+    const req = JSON.stringify(images)
+    localStorage.setItem("img", req)
+    
+  }
+
+  const img = localStorage.getItem("img")
+  const imgArray = JSON.parse(img)
+  const res = img ? imgArray.map(e => e.data_url) : ""
+
+  console.log(images)
+  console.log(image1)
+
   return (
     <>
-    
+    <img src={res[3]} alt="img" />
     <Box m="20px">
       <Header title="CRIAR UM PRODUTO" subtitle="Crie um novo perfil de usuário" />
       <div style={{width: 180}}>
         {categoryid ? 
         <ul>
-          <li style={{margin: 10, border: "solid 1px", padding: 10, fontSize: "2.rem", listStyleType: "none"}}>
-            <img src={categoryid.image} alt="img" style={{width: 100, height: 80}}/>
-            <h5 style={{fontSize: 20, marginTop: 8}}>{categoryid.name}</h5>
+          <li style={{margin: 10, border: "solid 1px", padding: 10, fontSize: "2.rem", listStyleType: "none", height: 132}}>
+            <img src={categoryid.image} alt="img" style={{width: 100, height: 90}}/>
+            <h5 style={{fontSize: 20, marginTop: -4}}>{categoryid.name}</h5>
           </li> 
         </ul> : ""
         }
@@ -119,7 +145,56 @@ const Form = () => {
                 )
             })}
           </ul>
+          <ImageUploading
+                multiple
+                value={images}
+                onChange={onChange}
+                maxNumber={maxNumber}
+                dataURLKey="data_url"
+              >
+                {({
+                  imageList,
+                  onImageUpload,
+                  onImageRemoveAll,
+                  onImageUpdate,
+                  onImageRemove,
+                  isDragging,
+                  dragProps,
+                }) => (
+                  // write your building UI
+                  <div className="container col-md-3 mt-5">
+                    <button
+                      className='btn btn-primary p-3 h5'
+                      style={isDragging ? { color: 'red' } : undefined}
+                      onClick={onImageUpload}
+                      {...dragProps}
+                    >
+                    <div>
+                      <ImCloudUpload style={{width: 80, height: 80, cursor: "pointer"}}/>
+                    </div>
+                    </button>
+                    <button style={{width: 80, fontSize: 15, fontWeight: "bold", background: "green", cursor: "pointer"}} onClick={() => handleImages()}>
+                        Guarda imagens
+                      </button>
+                    &nbsp;
+                    {imageList.map((image, index) => (
+                      <div style={{display: "inline-block", margin: 5}}>
+                        <div key={index} >
+                          <img src={image['data_url']} alt="" width="160" height="100"/>
+                        </div>
+                        
+                        <div className="container col-7 mt-2">
+                        <button style={{width: 160, fontSize: 15, fontWeight: "bold"}} onClick={() => onImageRemove(index)}>
+                          Remove
+                        </button>
+                      </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </ImageUploading>
         </UlLista>
+        
           <form onSubmit={handleFormSubmit}>
             <Box
               display="grid"
@@ -215,26 +290,28 @@ const Form = () => {
                 
                 sx={{ gridColumn: "span 2" }}
                 />
+                
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
                 label="Image 1"
                 
-                onChange={(e) => setImage1(e.target.value)}
+                onChange={(e) => setImage1(e ? e.target.value : res[0])}
                 
                 name="Image 1"
                 
                 
                 sx={{ gridColumn: "span 1" }}
               />
+              
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
                 label="image 2"
                 
-                onChange={(e) => setImage2(e.target.value)} 
+                onChange={(e) => setImage2(e ? e.target.value : res[1])}
                 
                 name="image 2"
                 
@@ -247,7 +324,7 @@ const Form = () => {
                 type="text"
                 label="image 2"
                 
-                onChange={(e) => setImage3(e.target.value)} 
+                onChange={(e) => setImage3(e ? e.target.value : res[2])} 
                 
                 name="image 3"
                 
@@ -260,7 +337,7 @@ const Form = () => {
                 type="text"
                 label="image 4"
                 
-                onChange={(e) => setImage4(e.target.value)} 
+                onChange={(e) => setImage4(e ? e.target.value : res[3])}
                
                 name="image 4"
                 
@@ -273,7 +350,7 @@ const Form = () => {
                 type="text"
                 label="image 5"
                 
-                onChange={(e) => setImage5(e.target.value)} 
+                onChange={(e) => setImage5(e ? e.target.value : res[4])}
                
                 name="image 5"
                 
