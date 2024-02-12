@@ -162,8 +162,15 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Formulário de Perfil"
+              title="Cadastro de produtos"
               to="/form"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Atualização de produtos"
+              to="/formupdate"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
