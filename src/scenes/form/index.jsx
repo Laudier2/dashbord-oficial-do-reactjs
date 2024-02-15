@@ -5,19 +5,19 @@ import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { toast } from 'react-toastify';
 import { UlLista } from "./styles";
-import ImageUploading from 'react-images-uploading';
-import { ImCloudUpload } from "react-icons/im";
+/*import ImageUploading from 'react-images-uploading';
+import { ImCloudUpload } from "react-icons/im";*/
 
 const Form = () => {
 
-  const [images, setImages] = useState([]);
+  /*const [images, setImages] = useState([]);
   const maxNumber = 69;
 
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
-  };
+  };*/
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -101,19 +101,19 @@ const Form = () => {
     
   };
 
-  const handleImages = () => {
+  /*const handleImages = () => {
 
     const req = JSON.stringify(images)
     localStorage.setItem("img", req)
     
-  }
+  }*/
 
   const img = localStorage.getItem("img")
   const imgArray = JSON.parse(img)
   const res = img ? imgArray.map(e => e.data_url) : ""
 
-  console.log(images)
-  console.log(image1)
+  //console.log(images)
+  //console.log(image1)
 
   return (
     <>
@@ -145,7 +145,7 @@ const Form = () => {
                 )
             })}
           </ul>
-          <ImageUploading
+          {/*<ImageUploading
                 multiple
                 value={images}
                 onChange={onChange}
@@ -192,7 +192,7 @@ const Form = () => {
                     ))}
                   </div>
                 )}
-              </ImageUploading>
+              </ImageUploading>*/}
         </UlLista>
         
           <form onSubmit={handleFormSubmit}>
