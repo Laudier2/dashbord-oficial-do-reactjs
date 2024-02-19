@@ -293,7 +293,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
+                label="Slug0"
                 
                 onChange={(e) => setSlug0(e.target.value)} 
                
@@ -306,19 +306,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
-                
-                onChange={(e) => setSlug0(e.target.value)} 
-               
-                name="Slug"
-                
-                
-                sx={{ gridColumn: "span 1" }}
-                /><TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Slug"
+                label="Slug1"
                 
                 onChange={(e) => setSlug1(e.target.value)} 
                
@@ -330,7 +318,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
+                label="Slug2"
                 
                 onChange={(e) => setSlug2(e.target.value)} 
                
@@ -342,7 +330,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
+                label="Slug3"
                 
                 onChange={(e) => setSlug3(e.target.value)} 
                
@@ -354,7 +342,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
+                label="Slug4"
                 
                 onChange={(e) => setSlug4(e.target.value)} 
                
@@ -366,7 +354,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Slug"
+                label="Slug5"
                 
                 onChange={(e) => setSlug5(e.target.value)} 
                
