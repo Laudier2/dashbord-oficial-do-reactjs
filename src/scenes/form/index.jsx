@@ -22,7 +22,12 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const [name, setName] = useState("")
-  const [slug, setSlug] = useState("")
+  const [slug0, setSlug0] = useState("")
+  const [slug1, setSlug1] = useState("")
+  const [slug2, setSlug2] = useState("")
+  const [slug3, setSlug3] = useState("")
+  const [slug4, setSlug4] = useState("")
+  const [slug5, setSlug5] = useState("")
   const [price, setPrice] = useState("")
   const [size, setSize] = useState("")
   const [quantity, setQuantity] = useState("")
@@ -59,7 +64,14 @@ const Form = () => {
 
     const CreteUser = [{
       name: name,
-      slug: slug,
+      slug: [
+        slug0, 
+        slug1, 
+        slug2, 
+        slug3, 
+        slug4, 
+        slug5
+      ], 
       price: price,
       size: size,
       quantity: quantity,
@@ -283,12 +295,85 @@ const Form = () => {
                 type="text"
                 label="Slug"
                 
-                onChange={(e) => setSlug(e.target.value)} 
+                onChange={(e) => setSlug0(e.target.value)} 
                
                 name="Slug"
                 
                 
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 1" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug0(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+                /><TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug1(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+                /><TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug2(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+                /><TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug3(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+                /><TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug4(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
+                /><TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Slug"
+                
+                onChange={(e) => setSlug5(e.target.value)} 
+               
+                name="Slug"
+                
+                
+                sx={{ gridColumn: "span 1" }}
                 />
                 
               <TextField
