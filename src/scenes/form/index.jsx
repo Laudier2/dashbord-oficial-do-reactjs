@@ -29,7 +29,12 @@ const Form = () => {
   const [slug4, setSlug4] = useState("")
   const [slug5, setSlug5] = useState("")
   const [price, setPrice] = useState("")
-  const [size, setSize] = useState("")
+  const [size0, setSize0] = useState("")
+  const [size1, setSize1] = useState("")
+  const [size2, setSize2] = useState("")
+  const [size3, setSize3] = useState("")
+  const [size4, setSize4] = useState("")
+  const [size5, setSize5] = useState("")
   const [quantity, setQuantity] = useState("")
   const [description, setDescription] = useState("")
   const [barcode, setBarcode] = useState("")
@@ -73,7 +78,14 @@ const Form = () => {
         slug5
       ], 
       price: price,
-      size: size,
+      size: [
+        size0, 
+        size1, 
+        size2, 
+        size3, 
+        size4, 
+        size5
+      ],
       quantity: quantity,
       description: description,
       bar_code: barcode,
@@ -257,9 +269,69 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Size"
+                label="Size 0"
                 
-                onChange={(e) => setSize(e.target.value)} 
+                onChange={(e) => setSize0(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Size 1"
+                
+                onChange={(e) => setSize1(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Size 2"
+                
+                onChange={(e) => setSize2(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Size 3"
+                
+                onChange={(e) => setSize3(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Size 4"
+                
+                onChange={(e) => setSize4(e.target.value)} 
+                name="Aize"
+                
+                
+                sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Size 5"
+                
+                onChange={(e) => setSize5(e.target.value)} 
                 name="Aize"
                 
                 
