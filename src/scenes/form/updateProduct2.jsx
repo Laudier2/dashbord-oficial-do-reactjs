@@ -25,37 +25,6 @@ const FormUpdate = () => {
   const [data, setData] = useState(dataProducts);
   const [product, setProduct] = useState([]);
 
-  const dataProducts2 = {
-    name: data.name,
-    price: data.price,
-    slug: data.slug,
-    quantity: data.quantity,
-    bar_code: data.bar_code,
-    description: data.descriptioni,
-    url_product: data.url_product,
-    size: [
-      data.size[0], 
-      data.size[1], 
-      data.size[2], 
-      data.size[3], 
-      data.size[4]
-    ],
-    color: [
-      data.color[0], 
-      data.color[1], 
-      data.color[2], 
-      data.color[3], 
-      data.color[4]
-    ],
-    image: [
-      data.image[0], 
-      data.image[1], 
-      data.image[2], 
-      data.image[3], 
-      data.image[4]
-    ],
-  }
-
   /*const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
@@ -66,6 +35,8 @@ const FormUpdate = () => {
 
   const onChange = (ev) => {
     const { name, value } = ev.target;
+
+    //console.log(ev)
 
     setData({ ...data, [name]: value });
   };
@@ -85,13 +56,13 @@ const FormUpdate = () => {
   //console.log(product)
 
   const handleDelete = async (values) => {
-    //values.preventDefault()
+    values.preventDefault()
 
-    console.log(values)
+    //console.log(values)
 
     await api.delete(`/product/${values}`).then((res) => {
       toast.success(`O produto foi deletado com sucesso!`)
-      window.location.reload()
+      //window.location.reload()
       //console.log(res.data.id, categoryid.id)
     })
     .catch((error) => {
@@ -106,19 +77,19 @@ const FormUpdate = () => {
   const handleFormSubmit = async (values) => {
     values.preventDefault()
 
-    await api.put("/product", dataProducts2).then((res) => {
+    /*await api.put("/product", data).then((res) => {
       toast.success(`O produto foi atualizado com sucesso!`)
       setTimeout(() => {
-        window.location.reload()
+        //window.location.reload()
       },3000)
       //console.log(res.data.id, categoryid.id)
     })
     .catch((error) => {
       toast.error(`Houve um erro ao cadastra o produto, referente a: ${error}`)
       console.log(error)
-    })
+    })*/
   
-    console.log(dataProducts2)
+    //console.log(data)
     
   };
 
@@ -235,7 +206,7 @@ const FormUpdate = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Image 1"
+                label="Image1"
                 value={data.image}
                 onChange={onChange} 
                 name="image"

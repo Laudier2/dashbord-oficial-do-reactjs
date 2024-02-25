@@ -51,6 +51,17 @@ const Form = () => {
   const [color4, setColor4] = useState("")
   const [color5, setColor5] = useState("")
   const [urlProduct, setUrlproduct] = useState("")
+
+  //stete comentarios
+  const [imgName, setImgName] = useState("")
+  const [nameUser, setNameUser] = useState("")
+  const [imageUser0, setImageUser0] = useState("")
+  const [imageUser1, setImageUser1] = useState("")
+  const [imageUser2, setImageUser2] = useState("")
+  const [imageUser3, setImageUser3] = useState("")
+  const [msgUser, setMessage] = useState("")
+  const [estrela, setEstrela] = useState("")
+
   
 
   console.log(categoryid.id)
@@ -67,7 +78,7 @@ const Form = () => {
   const handleFormSubmit = async (values) => {
     values.preventDefault()
 
-    const CreteUser = [{
+    const CreateUser = {
       name: name,
       slug: [
         slug0, 
@@ -92,10 +103,19 @@ const Form = () => {
       url_product: urlProduct,
       image: [image1, image2, image3, image4, image5],
       color: [color1, color2, color3, color4, color5]
-    }]
+    }
 
-    await api.post("/product", CreteUser[0]).then((res) => {
-      toast.success(`O produto ${CreteUser[0].name} foi criado com sucesso!`)
+    const Comentario = {
+      imgName: imgName,
+      name: nameUser,
+      image: [imageUser0, imageUser1, imageUser2, imageUser3],
+      message: msgUser,
+      estrela: estrela      
+
+    }
+
+    await api.post("/product", CreateUser).then((res) => {
+      toast.success(`O produto ${CreateUser.name} foi criado com sucesso!`)
       //console.log(res.data.id, categoryid.id)
 
       setTimeout(async() => {
@@ -106,7 +126,7 @@ const Form = () => {
 
         console.log(dataRelations)
     
-       await api.post("/categorypr", dataRelations).then((catego) => {
+        await api.post("/categorypr", dataRelations).then((catego) => {
           
           console.log(catego.data)
         })
@@ -114,15 +134,27 @@ const Form = () => {
           toast.error(`Houve um erro ao criar o relacionamento: ${error}`)
           console.log(error)
         })
+
+        await api.post("/comentario", Comentario).then((response) => {
+
+          const dataRelations2 = {
+            id_comentario: `${response.data.comentario.id}`,
+            id_product: `${res.data.id}`
+          }
+
+          //console.log(dataRelations)
+      
+          api.post("/comentariorelation", dataRelations2).then((catego) => {
+            toast.success(`O relacionamento foi feito!`)
+          })
+        })
       }, 5000);
+      
     })
-    .catch((error) => {
-      toast.error(`Houve um erro ao cadastra o produto, referente a: ${error}`)
-      console.log(error)
-    })
-  
-    //console.log(CreteUser[0])
-    
+
+    //toast.success(`O comentario foi criado com sucesso!`)
+    //console.log(res.data.id, categoryid.id)
+
   };
 
   /*const handleImages = () => {
@@ -572,7 +604,85 @@ const Form = () => {
                 name="url_product"
                 sx={{ gridColumn: "span 3" }}
               />
-              
+            </Box>
+            <br />
+            <h2>Avaliação e comentarios</h2>
+            <hr />
+            <br />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Image Users"
+              onChange={(e) => setImgName(e.target.value)}                
+              name="imgName"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Name User"
+              onChange={(e) => setNameUser(e.target.value)}                
+              name="name"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Image0"
+              onChange={(e) => setImageUser0(e.target.value)}                
+              name="image0"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Image1"
+              onChange={(e) => setImageUser1(e.target.value)}                
+              name="image1"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Image2"
+              onChange={(e) => setImageUser2(e.target.value)}                
+              name="image2"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Image3"
+              onChange={(e) => setImageUser3(e.target.value)}                
+              name="image3"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Message"
+              onChange={(e) => setMessage(e.target.value)}                
+              name="message"
+              sx={{ gridColumn: "span 3" }}
+            />
+             <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="Estrela"
+              onChange={(e) => setEstrela(e.target.value)}                
+              name="estrela"
+              sx={{ gridColumn: "span 3" }}
+            />
+            <Box>
+
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
