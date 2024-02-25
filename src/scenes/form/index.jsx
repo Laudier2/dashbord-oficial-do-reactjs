@@ -173,7 +173,6 @@ const Form = () => {
 
   return (
     <>
-    <img src={res[3]} alt="img" />
     <Box m="20px">
       <Header title="CRIAR UM PRODUTO" subtitle="Crie um novo perfil de usuário" />
       <div style={{width: 180}}>
