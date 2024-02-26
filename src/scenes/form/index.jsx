@@ -105,15 +105,6 @@ const Form = () => {
       color: [color1, color2, color3, color4, color5]
     }
 
-    const Comentario = {
-      imgName: imgName,
-      name: nameUser,
-      image: [imageUser0, imageUser1, imageUser2, imageUser3],
-      message: msgUser,
-      estrela: estrela      
-
-    }
-
     await api.post("/product", CreateUser).then((res) => {
       toast.success(`O produto ${CreateUser.name} foi criado com sucesso!`)
       //console.log(res.data.id, categoryid.id)
@@ -134,6 +125,16 @@ const Form = () => {
           toast.error(`Houve um erro ao criar o relacionamento: ${error}`)
           console.log(error)
         })
+
+        const Comentario = {
+          imgName: imgName,
+          name: nameUser,
+          image: [imageUser0, imageUser1, imageUser2, imageUser3],
+          message: msgUser,
+          idProduct: res.data.id,
+          estrela: estrela      
+    
+        }
 
         await api.post("/comentario", Comentario).then((response) => {
 
